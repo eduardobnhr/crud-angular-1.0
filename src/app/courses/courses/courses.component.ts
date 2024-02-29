@@ -11,14 +11,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Observable<Course[]> = this.coursesService.list();
+  courses$: Observable<Course[]> = this.coursesService.list();
   displayedColumns: string[] = ['name', 'categoria'];
   dataSource = new MatTableDataSource<Course>();
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.courses.subscribe(data => {
+    this.courses$.subscribe(data => {
       this.dataSource.data = data;
     });
   }
