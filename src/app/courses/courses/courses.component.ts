@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-courses',
@@ -9,18 +11,15 @@ import { CoursesService } from '../services/courses.service';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [];
-  displayedColumns = ['name', 'category'];
+  courses: Observable<Course[]> = this.coursesService.list();
+  displayedColumns: string[] = ['name', 'categoria'];
+  dataSource = new MatTableDataSource<Course>();
 
- //coursesService: CoursesService;
-
-  constructor(private coursesService: CoursesService) {
-    //this.coursesService = new CoursesService();
-    this.courses = this.coursesService.list();
-  }
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-
+    this.courses.subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
-
 }

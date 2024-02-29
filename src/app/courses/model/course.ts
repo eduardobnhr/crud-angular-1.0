@@ -1,5 +1,5 @@
 export interface Course {
   _id: string;
-  name: String;
-  categoria: String;
+  name: string;
+  categoria: string; // <-- ajuste para 'categoria'
 }
